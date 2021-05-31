@@ -43,6 +43,11 @@ export default function GoodPage(props) {
 			const url = images[0].url
 			return(
 				<div className='goodCardWrapper'>
+					<Button 
+						className = 'goBack'
+						value='<'
+						onClick = {()=> props.history.goBack()}
+					/>
 					<img src={`${urlUpload}/${url}`} alt='picture'/>
 					<div className='descriptionBlock'>
 						<h3>Название :</h3>

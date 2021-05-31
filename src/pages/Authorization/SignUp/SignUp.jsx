@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {useMutation} from '@apollo/react-hooks'
 import { Link } from 'react-router-dom'
-// import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { useFormik } from 'formik';
+import * as Yup from 'yup'
 
 import Input from '../../../components/Input/Input.jsx'
 import Button from '../../../components/Button/Button.jsx'
@@ -10,26 +11,25 @@ import {SIGN_UP_MUTATION} from '../../../core/SignUp/signUp-mutations'
 
 export default function SignUp({history}) {
 
-	const [login, setLogin] = useState('')
-	const [password, setPassword] = useState('')
-	const [chekPassword, setCheckPassword] = useState('')
+	const {handleSubmit, isValid=false, handleChange, handleBlur, values, touched, errors} = useFormik({
+		initialValues : {
+			login : '',
+			password : '',
+			chekPassword : ''
+		},	
+		validationSchema: Yup.object({
+			login: Yup.string().max(10, 'Не больше 10 символов').required('Введите имя'),
+			password: Yup.string().min(6, 'Не короче 6 символов').required('Введите пароль'),
+			chekPassword: Yup.string().oneOf([Yup.ref('password')], 'Пароли не совпадают').required('Пароли не совпадают')
+		}),
+		onSubmit: ({login, password, chekPassword}) => {
+			handleSignUp(login, password, chekPassword)
+		}
+	})
 
 	const [registration, {error}] = useMutation(SIGN_UP_MUTATION)
 
-	const loginHandler = ({target}) => {
-		setLogin(target.value)
-	}
-	const passwordHandler = ({target}) => {
-		setPassword(target.value)
-	}
-	const checkPassHandler = ({target}) => {
-		setCheckPassword(target.value)
-	}
-	const handleSignUp =  () => {
-		if(chekPassword !== password){
-			console.log('error')
-		}
-
+	const handleSignUp = (login, password, chekPassword) => {
 		if(localStorage.getItem('token')){
 			localStorage.removeItem('token')
 			registration({	variables : {	
@@ -41,169 +41,67 @@ export default function SignUp({history}) {
 			login : login,
 			password : password	
 		}})
-		setLogin('')
-		setPassword('')
-		setCheckPassword('')
+		login = ''
+		password = ''
+		chekPassword = ''
 		history.push('/sign-in')
 
 	}
 
 	return (
-		// <Formik
-		// 		initialValues={{ login: '' , password: '', chekPassword: ''  }}
-		// 		validate={values => {
-		// 		const errors = {};
-		// 		if (!values.login) {
-		// 			errors.login = 'Required';
-		// 		}
-		// 		if (!values.password) {
-		// 			errors.password = 'Required';
-		// 		}else if(values.password.length < 6){
-		// 			errors.password = 'Пароль должен быть не менее 6 символов'
-		// 		}
-		// 		if(values.password !== values.chekPassword){
-		// 			errors.chekPassword = 'Проверьте правильность пароля!'
-		// 		}
-		// 		return errors;
-		// 		}}
-		// 		onSubmit={(values,{ setSubmitting }) => {
-		// 			if(localStorage.getItem('token')){
-		// 				localStorage.removeItem('token')
-		// 				registration({	variables : {	
-		// 					login : values.login,
-		// 					password : values.password
-		// 			}})
-		// 			}		
-		// 			 registration({	variables : {
-						
-		// 					login : values.login,
-		// 					password : values.password
-						
-		// 			}})
-		// 			setSubmitting(false) 
-		// 			history.push('/sign-in')
-		// 		}}
-		// >
-		// 	{({ isSubmitting }) => (
-		// 	<Form className='signUpWrapp'> 
-		// 		<div className='signUpForm'>
-		// 			<Field 
-		// 				type="text" 
-		// 				name="login" 
-		// 				// onChange = {loginHandler}
-		// 				// component = {Input}
-
-		// 			/>
-		// 			<ErrorMessage 
-		// 				name="login" 
-		// 				component="div" 
-		// 			/>
-		// 			<Field 
-		// 				type="password" 
-		// 				name="password" 
-		// 				// onChange = {passwordHandler}
-		// 				// component = {Input}	
-						
-		// 			/>
-		// 			<ErrorMessage 
-		// 				name="password" 
-		// 				component="div" 
-		// 			/>
-		// 			<Field 
-		// 				type="password" 
-		// 				name="chekPassword" 
-		// 				// onChange = {checkPassHandler}
-		// 				// component = {Input}
-						
-		// 			/>
-		// 			<ErrorMessage 
-		// 				name="chekPassword" 
-		// 				component="div" 
-		// 			/>
-		// 			<button 
-		// 				type='submit'
-		// 				disabled={isSubmitting}
-		// 				>Submit</button>
-		// 			{/* <Button 
-		// 				type="submit" 
-		// 				disabled={isSubmitting} 
-		// 				value= 'Регистрация'
-		// 				// onClick={handleSignUp}
-		// 				/> */}
-		// 		</div>
-		// 	</Form>
-		// 	)}
-		// </Formik> 
-
+	
+		
 		<div className='signUpWrapp'>
-				<div className='signUpForm'>
-				<Input 
-					name = 'Введите имя'
+				<form 
+					onSubmit = {handleSubmit}
+					className='signUpForm'>
+		 		<Input 
+					name = 'login'
 					type = 'text'
 					placeholder = 'name'
-					value = {login}
-					onChange = {loginHandler}
+					onChange = {handleChange}
+					value = {values.login}
+					onBlur = {handleBlur}
+					autoComplete = 'off'
 				/>
+				{
+					touched.login && errors.login ? 
+					<span>{errors.login}</span> :
+					null
+				}
 				<Input 
-					name = 'Введите пароль'
+					name = 'password'
 					type = 'password'
 					placeholder = 'password'
-					value = {password}
-					onChange = {passwordHandler}
+					value = {values.password}
+					onChange = {handleChange}
+					onBlur = {handleBlur}
 				/>
+				{
+					touched.password && errors.password ? 
+					<span>{errors.password}</span> :
+					null
+				}
 				<Input 
-					name = 'Введите пароль еще раз'
+					name = 'chekPassword'
 					type = 'password'
 					placeholder = 'check password'
-					value = {chekPassword}
-					onChange = {checkPassHandler}
+					value = {values.chekPassword}
+					onChange = {handleChange}
+					onBlur = {handleBlur}
 				/>
+					{
+					touched.chekPassword && errors.chekPassword ? 
+					<span>{errors.chekPassword}</span> :
+					null
+				}
 				<Button
 					value = 'Регистрация'
-					onClick = {handleSignUp}
-					// disabled = {  }
+					// disabled = { !isValid }
 				/>
 				<Link to='sign-in'>Уже зарегистрировался?</Link>
-			</div>
+			</form>
 		</div>
 	)
 }
 
-
-
-// import { Formik, Form, Field, ErrorMessage } from 'formik';
-
-// return (
-//   <Formik
-//      initialValues={{ email: '', password: '' }}
-//      validate={values => {
-//        const errors = {};
-//        if (!values.email) {
-//          errors.email = 'Required';
-//        } else if (
-//          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-//        ) {
-//          errors.email = 'Invalid email address';
-//        }
-//        return errors;
-//      }}
-//      onSubmit={(values, { setSubmitting }) => {
-//        setTimeout(() => {
-//          alert(JSON.stringify(values, null, 2));
-//          setSubmitting(false);
-//        }, 400);
-//      }}
-//    >
-//      {({ isSubmitting }) => (
-//        <Form> // уже не просто <form>, в собственній компонент Формика
-//          <Field type="email" name="email" />
-//          <ErrorMessage name="email" component="div" />
-//          <Field type="password" name="password" />
-//          <ErrorMessage name="password" component="div" />
-//          <button type="submit" disabled={isSubmitting}>
-//            Submit
-//          </button>
-//        </Form>
-//      )}
-//   </Formik> 
-// )

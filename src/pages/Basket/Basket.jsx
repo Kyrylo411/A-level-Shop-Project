@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import {clearTheBasket} from '../../redux/actions/actionCreators/basketActions'
 import OrderBlock from '../../components/OrderBlock/OrderBlock'
@@ -69,8 +70,11 @@ export default function Basket({history}) {
 						</div>
 					</div>
 					</> :
-					<span className='emptyBasketMessage'>Вы ещё ничего не положили в корзину</span>
-					}	
+					<div className='emptyMessageWrap'>
+						<span className='emptyBasketMessage'>Вы ещё ничего не положили в корзину </span>
+						<Link className='backToCat' to='/'>В каталог</Link>
+					</div>
+			}	
 		</div>
 	)
 }

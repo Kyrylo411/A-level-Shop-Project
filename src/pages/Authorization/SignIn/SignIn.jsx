@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import { useLazyQuery } from '@apollo/client'
 import {Link} from 'react-router-dom'
-// import jwt from 'jsonwebtoken';
 import { useDispatch } from 'react-redux';
+import {useFormik} from 'formik'
+import * as Yup from 'yup'
  
 
 import Input from '../../../components/Input/Input'
@@ -14,36 +15,34 @@ import './SignIn.scss'
 
 export default function SignIn({history}) {
 
-	const [login, setLogin] = useState('')
-	const [password, setPassword] = useState('')
 	const dispatch = useDispatch()
 
-
-	const [Login, {data: token}] = useLazyQuery(SIGN_IN_QUERY,{
-		variables : {
-			login : login,
-			password : password
+	const {handleSubmit, isValid=false, handleChange, handleBlur, values, touched, errors} = useFormik({
+		initialValues : {
+			login : '',
+			password : ''
+		},
+		validationSchema : Yup.object({
+			login : Yup.string().required('Введите имя'),
+			password : Yup.string().required('Введите пароль'),
+		}),
+		onSubmit : () => {
+			Login()
 		}
 	})
-
-	const loginHandleInput = ({target:{value}}) => {
-		setLogin(value)
-	}
-	const passHandleInput = ({target:{value}}) => {
-		setPassword(value)
-	}
 	
-	const handleSignIn = () => {
-		Login()
-		// setLogin('')
-		// setPassword('')
-	}
+	const [Login, {data: token}] = useLazyQuery(SIGN_IN_QUERY,{
+		variables : {
+			login : values.login,
+			password : values.password
+		}
+	})
 
 	useEffect(()=>{
 		if(token){
 			if(token.login){
 				localStorage.setItem('token', token.login)
-				dispatch(loginAction(login))
+				dispatch(loginAction(values.login))
 				history.push('/')
 			}		
 		}		
@@ -51,28 +50,43 @@ export default function SignIn({history}) {
 
 	return (
 		<div className='signInWrapp'>
-			<div className='signInForm'>
-			<Input 
-				name = 'Введите имя'
-				type = 'text'
-				placeholder = 'name'
-				value = {login}
-				onChange = {loginHandleInput}
-			/>
-			<Input 
-				name = 'Введите пароль'
-				type = 'password'
-				placeholder = 'password'
-				value = {password}
-				onChange = {passHandleInput}
-			/>
-		
+			<form 
+				onSubmit = {handleSubmit}
+				className='signInForm'
+			>
+				<Input 
+					name = 'login'
+					type = 'text'
+					placeholder = 'name'
+					onChange = {handleChange}
+					value = {values.login}
+					onBlur = {handleBlur}
+					autoComplete = 'off'
+				/>
+				{
+					touched.login && errors.login ? 
+					<span>{errors.login}</span> :
+					null
+				}
+				<Input 
+					name = 'password'
+					type = 'password'
+					placeholder = 'password'
+					value = {values.password}
+					onChange = {handleChange}
+					onBlur = {handleBlur}
+				/>
+				{
+					touched.password && errors.password ? 
+					<span>{errors.password}</span> :
+					null
+				}
 			<Button
 				value = 'Войти'
-				onClick = {()=>handleSignIn(login)}
 			/>
 			<Link to='sign-up'>Еще не зарегистрировался?</Link>
-		</div>
+		</form>
 	</div>
 	)
 }
+

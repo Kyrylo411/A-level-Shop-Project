@@ -3,8 +3,6 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	// position: relative;
-	// height: 1000px;
 
 	.allOrders{
 		display: flex;
@@ -30,10 +28,7 @@
 			align-items: center;
 			max-width: 350px;
 			width: 100vw;
-			// position: absolute;
-			// bottom: 0;
-
-
+		
 			span{
 				font-size: 25px;
 			}
@@ -45,8 +40,24 @@
 
 	}
 
-	.emptyBasketMessage{
-		font-size: 40px;
-		margin-top: 100px;
+	.emptyMessageWrap{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		
+		
+		
+		.emptyBasketMessage{
+			font-size: 30px;
+			margin-top: 100px;
+		}
+	
+		.backToCat{
+			font-size: 30px;
+			color: red;
+			border-bottom: 1px solid red;
+			font-weight: normal;
+		}
 	}
 }

@@ -7,6 +7,7 @@ import addingGoodToBasket from '../../redux/actions/actionCreators/goodsActions'
 import GoodCard from '../GoodCard/GoodCard'
 import Loader from '../Loader/Loader'
 import './CatGoodsComponent.scss'
+import Button from '../Button/Button'
 
 export default function CatGoodsComponent(props) {
 
@@ -73,6 +74,11 @@ export default function CatGoodsComponent(props) {
 
 	return (
 		<div className='pageWrapper'>
+			<Button 
+				className = 'goBack'
+				value='<'
+				onClick = {()=> props.history.goBack()}
+			/>
 			{dataToPage()}
 		</div>
 	)

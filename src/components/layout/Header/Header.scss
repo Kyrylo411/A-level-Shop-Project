@@ -1,7 +1,7 @@
 a{
 	text-decoration: none;
 	color: white;
-	font-size: 20px;
+	font-size: 18px;
 	font-weight: lighter;
 }
 a:hover{
@@ -14,60 +14,66 @@ a:hover{
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
-	height: 130px;
-	background-color: black;
+	height: 100px;
+	background-color: rgba(0, 0, 0, 0.863);
 
 
 	.logo{
-		width: 95px;
-		height: 95px;
-		border-radius: 50%;
+		width: 75px;
+		height: 75px;
+		border-radius: 12px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		background-color: rgb(248, 115, 66);
 		margin: 30px;
 		font-weight: 700;
-		font-size: 25px;
+		font-size: 20px;
 		color: black;
 	}
 	.logo:hover{
 		background-color:rgba(234, 255, 44, 0.733);
 		transition: .3s;
-		box-shadow: 0 0 30px rgb(248, 115, 66)
+		box-shadow: 0 0 30px rgb(248, 115, 66);
+		transform: rotate(360deg);
 	}
 	.rightBlock{
 		display: flex;
 		max-width: 400px;
 		width: 100%;
+	
 
 		
 		.authBlock{
 			display: flex;
 			justify-content: space-between;
-			max-width: 200px;
+			max-width: 170px;
 			width: 100%;
-			margin: 30px;
+			margin: 20px;
 		}
 	}
 
 	.basket{
-		width: 85px;
-		height: 85px;
-		border-radius: 50%;
+		width: 75px;
+		height: 75px;
+		border-radius: 12px;
 		background-color: rgb(248, 115, 66);
-		background-image: url(../../../images/353439-basket-buy-cart1.svg);
+		background-image: url(../../../images/353439-basket-buy-cart.png);
+		background-size: 80px, 70px;
+		background-repeat: no-repeat;
+		background-position: bottom;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		color: rgba(234, 255, 44, 0.733);
+		color: rgb(248, 115, 66);
 		font-size: 30px;
 		font-weight: normal;
 	}
 	.basket:hover{
 		background-color:rgba(234, 255, 44, 0.733);
 		transition: .3s;
-		color: rgb(248, 115, 66);
+		color: rgba(234, 255, 44, 0.733);
 		box-shadow: 0 0 30px rgb(248, 115, 66);
+		transform: rotate(360deg);
 	}
 }
