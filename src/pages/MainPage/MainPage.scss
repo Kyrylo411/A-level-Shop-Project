@@ -1,0 +1,16 @@
+.wrapper{
+	width: 100vw;
+	max-width: 70%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	margin: 50px auto;
+}
+
+.errorMessage{
+	color: red;
+	display: flex;
+	font-size: 30px;
+	font-weight: bold;
+}

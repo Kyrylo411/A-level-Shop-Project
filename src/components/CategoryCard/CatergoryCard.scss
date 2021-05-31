@@ -1,0 +1,18 @@
+.CatWrapp {
+	width: 300px;
+	height: 140px;
+	min-width: 20%;
+	// flex: 1 1 auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid #f87342;
+	margin: 0 7.5px 15px;
+	cursor: pointer;
+	padding: 5px;
+	border-radius: 12px;
+}
+
+.CatWrapp:hover{
+	box-shadow:0 0 5px rgba(7, 5, 4, 0.925) ;
+}

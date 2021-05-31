@@ -1,0 +1,21 @@
+.orderWrapper{
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+	border: 1px solid black;
+	border-radius: 20px;
+	max-width: 1100px;
+	width: 100vw;
+	margin: 10px;
+	flex-wrap: wrap;
+
+	span{
+		font-size: 20px;
+		font-weight: bold;
+		color: black;
+	}
+
+	h4{
+		color: crimson;
+	}
+}

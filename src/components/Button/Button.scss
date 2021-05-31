@@ -1,0 +1,104 @@
+.button{
+	width: 130px;
+	height: 50px;
+	font-size: 18px;
+	background-color: rgba(0, 0, 0, 0.801);
+	color:rgb(248, 115, 66);
+	border-radius: 12px;
+	border: none;
+	outline: none;
+	cursor: pointer;
+}
+.button:hover{
+	background-color: rgba(15, 15, 4, 0.342);
+	color: black;
+	transition: .3s;
+}
+.addToBasket{
+	width: 190px;
+	height: 55px;
+	font-size: 18px;
+	border-radius: 12px;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	border: 2px solid rgb(248, 115, 66);
+	color: black;
+	background-color: white;
+}
+.addToBasket:hover{	
+	background-color: rgb(231, 101, 40);
+	color:white;
+	transition: .3s;
+}	
+.addToBasket:active{
+	background-color: rgb(107, 46, 24);
+}
+
+.addSubGood{
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	font-size: 30px;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	background-color: rgba(248, 115, 66);
+	color: black;
+}
+.addSubGood:hover{	
+	background-color: rgba(0, 0, 0, 0.801);
+	color:rgb(248, 115, 66);
+	transition: .3s;
+}	
+.deleteGood{
+	width: 100px;
+	height: 50px;
+	border-radius: 20px;
+	font-size: 18px;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	color: rgb(248, 115, 66);
+	background-color: rgba(0, 0, 0, 0.801);
+}
+.deleteGood:hover{	
+	background-color: red;	
+	color:black;
+	transition: .3s;
+}	
+.clearBasket{
+	width: 190px;
+	height: 50px;
+	border-radius: 20px;
+	font-size: 18px;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	color: rgb(248, 115, 66);
+	background-color: rgba(0, 0, 0, 0.801);
+	margin: 10px;
+}
+.clearBasket:hover{	
+	background-color: red;	
+	color:black;
+	transition: .3s;
+}	
+.makeOrder{
+	width: 190px;
+	height: 50px;
+	border-radius: 20px;
+	font-size: 18px;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	color: rgb(248, 115, 66);
+	background-color: rgba(0, 0, 0, 0.801);
+	margin: 10px;
+
+}
+.makeOrder:hover{	
+	background-color: rgb(248, 115, 66);	
+	color:black;
+	transition: .3s;
+}	

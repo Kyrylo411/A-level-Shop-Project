@@ -1,0 +1,36 @@
+.cardWrapper{
+	border: 0px solid gray;
+	display: flex;
+	flex-direction: column;
+	max-width: 400px;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	padding: 10px 10px 30px;
+	margin: 40px 20px;
+	border-radius: 12px;
+	
+	
+	.descriptionBlock{
+		display: flex;
+		flex-direction: column;
+		border-top: 1px solid rgb(248, 115, 66);
+		border-bottom: 1px solid rgb(248, 115, 66);
+		margin-bottom: 15px;
+		width: inherit;
+		max-width: 100%;
+		align-items: center;
+	}
+
+	.image{
+		cursor: pointer;
+		width: 400px;
+	}
+}
+
+.cardWrapper:hover{
+	box-shadow:0 0 8px rgba(7, 5, 4, 0.925) ;
+	transform: scale(1.01,1.01);
+	transition-duration: .3s;
+	
+}
